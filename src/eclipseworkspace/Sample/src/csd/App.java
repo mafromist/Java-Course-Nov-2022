@@ -1,64 +1,51 @@
 /*----------------------------------------------------------------------------------------------------------------------
-	Tür (type): Bir değişken için bellekte ne kadar yer ayrılacağını ve içerisindeki değerin hangi yöntemle tutulacağını
-	belirten kavramdır
+	Metot ne işe yarar? Ya da başka bvir deyişle bir problemin çözümünde neden metotlar yazalım? Bu sorular genel 
+	olarak aşağıdaki durumlar ile özetlenebilir:
 	
-	Java'da türler genel olarak iki gruba ayrılabilir:
-	Temel türler (primitive/built-in/predefined types), programcının tanımladığı türler (user defined types)
+	- Bir işi çok fazla yerde yapmak kod tekrarına yol açar. Yazılım geliştirmede temel prensip "zorunlu olmadıkça 
+	kod tekrarı yapılmamalıdır (do not repeat yourself)" şeklindedir. Bu durumda programcı önreğin bir metot yazar
+	ve ilgili yerlerde çağırır.
 	
-	Java'da türler birer anahtar sözcük ile temsil edilir:
+	- Bir problemin çözümü metot çağırma yerine her yerde kodun yazılması biçiminde gerçekleştirimişse (implementation),
+	bu durumda programcı problemde algoritmasında bir değişiklik yapmak isterse veya bir hata olduğunu anlayıp düzeltmek
+	isterse her yerde bu değişiklikleri yapmak zorunda kalır. Bu da çoğu zaman zor olabilir. Halbuki programcı bu problemin
+	çözümü için bir metot yazarsa değişikliği daha kolay yapabilir
 	
-	Temel türler:
+	- Bir problemin çözümü metot çağırma yerine her yerde kodun yazılması biçiminde gerçekleştirimişse (implementation),
+	bu durumda kodun okunalirliği/algılanabilirliği de azalabilir. Yani bu durumda metot çağırark kodun okunabilirliği/algılanabilirliği
+	artırılmış olur
 	
-	Tür ismi				Uzunluğu (byte)
-	short						2
- 	*int						4
-	long						8
-	byte						1
+	- Metot yazıldığında başka projelere taşınarak da kullanılabilir (code re-usability)
 	
-	float						4
-	*double						8
-	
-	char						2
-	boolean						-	
-	
-	
-	Açıklamalar:
-	- Tüm tamsayı türleri (integer/integral type) işaretlidir (signed). İkiye tümleme yöntemi kullanır. Java'da işaretsiz
-	tamsayı türü yoktur. Ancak Java 8 ile birlikte belirli koşullar altında işaretsiz tamsayı işlemleri yapılabilmektedir
-	
-	- long türü en uzun tamsayı türüdür
-	
-	- Gerçek sayı türleri (real/floating point types) için "IEEE 754 standardı" kullanılır. float ve double türleri
-	sırasıyla tek hassasiyetli (single precision) ve çift hassasiyetli (double precision) olarak değerleri tutmaktadır.
-	Bu türlerde bazı sayılar tam olarak ifade edilemezler. O sayıya en yakın bir sayı ile ifade edilebilirler. Bir noktalı
-	sayının ifade edilemeyip en yakın sayı olarak alınmasına "yuvarlama hatası (rounding error)" denir. Yuvarlama hataları
-	değer ilk kez yerleştirilirken de oluşabilir, bir işlemin sonucunda da oluşabilir. 
-	
-	- Gerçek sayı türleri işaretli türlerdir.
-	
-	- float türünün yuvarlama hatalarına karşı direnci zayıftır. Yani yuvarlama hatası daha çok olmaktadır
-	
-	- Yuvarlama hataları parasal ve finansal uygulamalarda hatalı değerlerin oluşmasına sebep olabilir. Sırf parasal ve
-	finansal uygulamalar tasarlanmış özel türler (sınıflar) bulunur. Programcı böylesi uygulamalar için bu özel türleri
-	tercih eder. Ancak bu sınıflar yuvarlama hatası oluşmaması için yüzlerce makine komutu kullanarak işlem yaparlar. Bu
-	durumda programcı için parasal ve finansal uygulamalar gibi yuvarlama hatalarının olmaması gereken durumlar dışında 
-	double veya duruma göre float türü tercih edilmelidir.	
-	
-	- boolean türünün alabileceği iki tane değer vardır: true, false. boolean türünün "Java Language Specification"'da 
-	belirtilmemiştir. Sistemden sisteme değişebilir. Ancak bu değişim programcı açısından problem oluşturmaz.	
-	
-	Anahtar Notlar: Java'da en çok kullanılan tamsayı türü int'tir, en çok kullanılan gerçek sayı türü de double'dır.
-	Programcı öncelikle bu türleri tercih etmelidir. Eğer geçerli bir nedeni varsa diğer türleri kullanmalıdır
-	
-	Anahtar Notlar: int türüne "integer" demek yanlış bir terim kullanmak demektir. integer terimi tamsayılar için kullanılan
-	genel bir terimdir. Ayrıca "Integer" isimli ileride göreceğimiz bir sınıf da bulunmaktadır
+	- Metodu yçağıran programcı metodun nasıl yazıldığına ilişkin detayları bilmek zorunda değildir. Çünkü metodun
+	çağrıldığı noktada metodun nasıl yazıldığının önemi yoktur
 -----------------------------------------------------------------------------------------------------------------------*/
 package csd;
 
-class App {
+class App {	
 	public static void main(String [] args)	
-	{		
-				
+	{	
+		java.util.Scanner kb = new java.util.Scanner(System.in);
+		System.out.print("İki sayı giriniz:");
+		int a = kb.nextInt();
+		int b = kb.nextInt();
+		int result = NumberUtil.multiply(a, b);
+		
+		System.out.println(result);
+		
+		//... (Burada a veya b değişkenlerinin değişmiyor)
+		
+		System.out.println(result);
 	}
 }
 
+
+class NumberUtil {
+	
+	public static int multiply(int a, int b)
+	{
+		return a * b;
+	}
+
+	//..
+}
