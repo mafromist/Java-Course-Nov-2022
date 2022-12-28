@@ -1,51 +1,61 @@
 /*----------------------------------------------------------------------------------------------------------------------
-	Metot ne işe yarar? Ya da başka bvir deyişle bir problemin çözümünde neden metotlar yazalım? Bu sorular genel 
-	olarak aşağıdaki durumlar ile özetlenebilir:
-	
-	- Bir işi çok fazla yerde yapmak kod tekrarına yol açar. Yazılım geliştirmede temel prensip "zorunlu olmadıkça 
-	kod tekrarı yapılmamalıdır (do not repeat yourself)" şeklindedir. Bu durumda programcı önreğin bir metot yazar
-	ve ilgili yerlerde çağırır.
-	
-	- Bir problemin çözümü metot çağırma yerine her yerde kodun yazılması biçiminde gerçekleştirimişse (implementation),
-	bu durumda programcı problemde algoritmasında bir değişiklik yapmak isterse veya bir hata olduğunu anlayıp düzeltmek
-	isterse her yerde bu değişiklikleri yapmak zorunda kalır. Bu da çoğu zaman zor olabilir. Halbuki programcı bu problemin
-	çözümü için bir metot yazarsa değişikliği daha kolay yapabilir
-	
-	- Bir problemin çözümü metot çağırma yerine her yerde kodun yazılması biçiminde gerçekleştirimişse (implementation),
-	bu durumda kodun okunalirliği/algılanabilirliği de azalabilir. Yani bu durumda metot çağırark kodun okunabilirliği/algılanabilirliği
-	artırılmış olur
-	
-	- Metot yazıldığında başka projelere taşınarak da kullanılabilir (code re-usability)
-	
-	- Metodu yçağıran programcı metodun nasıl yazıldığına ilişkin detayları bilmek zorunda değildir. Çünkü metodun
-	çağrıldığı noktada metodun nasıl yazıldığının önemi yoktur
+	Sınıf Çalışması: Katsayıları klavyeden alınan ikinci dereceden bir denklemin köklerini bulup ekrana yazdıran
+	programı yazınz.
+	Not: İleride daha iyisi yazılacaktır
 -----------------------------------------------------------------------------------------------------------------------*/
 package csd;
 
-class App {	
+class App {
 	public static void main(String [] args)	
-	{	
-		java.util.Scanner kb = new java.util.Scanner(System.in);
-		System.out.print("İki sayı giriniz:");
-		int a = kb.nextInt();
-		int b = kb.nextInt();
-		int result = NumberUtil.multiply(a, b);
-		
-		System.out.println(result);
-		
-		//... (Burada a veya b değişkenlerinin değişmiyor)
-		
-		System.out.println(result);
+	{		
+		QuadraticEquationSolverApp.run();
 	}
 }
 
 
-class NumberUtil {
-	
-	public static int multiply(int a, int b)
+class QuadraticEquationSolverApp {
+	public static void run()
 	{
-		return a * b;
-	}
+		java.util.Scanner kb = new java.util.Scanner(System.in);
+		
+		System.out.print("Katsayıları giriniz:");
+		double a = kb.nextDouble();
+		double b = kb.nextDouble();
+		double c = kb.nextDouble();
 
-	//..
+		QuadraticEquationSolver.printRoots(a, b, c);
+	}
 }
+
+class QuadraticEquationSolver {
+	public static void doWorkForRoots(double delta, double a, double b)
+	{
+		double x1, x2;
+		double sqrtDelta;
+		
+		sqrtDelta = Math.sqrt(delta);
+		
+		x1 = (-b + sqrtDelta) / (2 * a);
+		x2 = (-b - sqrtDelta) / (2 * a);
+		
+		System.out.printf("x1 = %f, x2 = %f%n", x1, x2);
+	}
+	
+
+	public static double getDelta(double a, double b, double c)
+	{
+		return b * b - 4 * a * c;
+	}
+	
+	public static void printRoots(double a, double b, double c)
+	{
+		double delta = getDelta(a, b, c);
+		
+		if (delta >= 0)
+			doWorkForRoots(delta, a, b);
+		else
+			System.out.println("Gerçek kök yok");
+		
+	}
+}
+
